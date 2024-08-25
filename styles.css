@@ -1,0 +1,22 @@
+body {
+    background-color: skyblue;
+}
+
+header {
+    text-align: center;
+}
+
+.portfolio {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+}
+
+.portfolio img {
+  width: 128px;
+  height: auto;
+  margin: 10px;
+}
