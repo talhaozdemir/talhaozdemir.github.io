@@ -5,8 +5,9 @@ body {
 header {
   font-family: Georgia, 'Times New Roman', Times, serif;
   text-align: center;
-  font-size: 2rem;
+  font-size: 16px;
   color: #666;
+  margin-top: 50px;
 }
 
 .portfolio {
@@ -19,10 +20,10 @@ header {
 }
 
 .portfolio a {
-  width: 20%;
+  width: 18%;
   height: auto;
-  margin: 20px;
-  border-radius: 32px;
+  margin: 10px;
+  border-radius: 10px;
 }
 
 .portfolio img {
