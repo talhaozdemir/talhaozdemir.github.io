@@ -10,7 +10,7 @@ function hidePreloader() {
 
 window.addEventListener("load", function () {
   console.log("Page loaded");
-  setTimeout(hidePreloader, 500/* 1700 */);
+  setTimeout(hidePreloader, 1700);
 });
 
 //Hamburger menu
