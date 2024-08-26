@@ -2,19 +2,284 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <title>Talha Özdemir</title>
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/media.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
-    <title>Fun and simple portfolio with R3F</title>
-    <script type="module" crossorigin src="/assets/index-UWBiygHL.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-Cj-y7MU3.css">
   </head>
+
   <body>
-    <div id="root"></div>
+    <div id="preloader">
+      <div class="jumping-dots">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+    <header id="header" class="header">
+      <div class="container container-lg">
+        <div class="header-nav">
+          <!-- <a href="#home" class="logo">Talha <span></span>Özdemir</a> -->
+          <nav id="nav" class="nav">
+            <ul class="nav-list">
+              <li class="nav-item">
+                <a href="#home" class="nav-link active">Home</a>
+              </li>
+              <li class="nav-item">
+                <a href="#about" class="nav-link">About</a>
+              </li>
+              <li class="nav-item">
+                <a href="#projects" class="nav-link">Works</a>
+              </li>
+            </ul>
+            <button id="nav-btn" class="nav-btn">
+              <img
+                id="nav-btn-img"
+                src="img/icons/open.svg"
+                alt="Navigation button"
+              />
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <section id="home" class="hero">
+      <div class="container container-lg">
+        <div
+          class="hero-row"
+          data-aos="fade-zoom-in"
+          data-aos-easing="ease-in-out"
+          data-aos-delay="1800"
+          data-aos-duration="2000"
+        >
+          <div class="hero-img">
+            <img
+              src="img/pp.jpeg"
+              alt="Picture of Christian Buehner taken from Unsplash</a>
+            "
+            />
+          </div>
+          <div class="hero-content">
+            <span class="hero-greeting"> Hello, I am</span>
+            <h1 class="hero-heading">Talha</h1>
+            <span class="hero-heading-subtitle"
+              >HTML5 Game & Playable Ads Developer</span
+            >
+            <div class="about-social-list">
+              <div class="social-links-row">
+                <a href="https://github.com/talhaozdemir" target="_blank">
+                  <img
+                    src="img/social_icons/github.svg"
+                    alt="Link to GitHub account"
+                  />
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/talha-%C3%B6zdemir-6a0a4a111/"
+                  target="_blank"
+                >
+                  <img
+                    src="img/social_icons/linkedin.svg"
+                    alt="Link to linkedin profile"
+                  />
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <a href="#projects" class="btn">My Portfolio</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="container">
+        <div class="about-title">
+          <h2 class="title">About Me</h2>
+        </div>
+        <div class="about-row">
+          <div class="about-content">
+            <p class="about-descr">
+              I'm an <strong>HTML5 game developer</strong> with a deep passion
+              for game design. Currently, I work at
+              <strong>Playable Factory</strong>, where I have developed over 200
+              engaging playable ads projects using
+              <strong>PhaserJS, PixiJS, ThreeJS</strong> and
+              <strong>Cocos Creator</strong>.
+            </p>
+            <p></p>
+            <p class="about-descr">
+              Throughout my career, I've gained
+              <strong>extensive knowledge</strong> in the field of
+              <strong>playable ads</strong>. I have worked on numerous projects
+              that involve creating <strong>interactive</strong> and
+              <strong>engaging ad experiences</strong> for users.
+            </p>
+            <p></p>
+            <p class="about-descr">
+              My experience includes <strong>developing ad formats</strong> that
+              drive <strong>user interaction</strong> and boost
+              <strong>conversion rates</strong>. Using tools like
+              <strong>PixiJS</strong> and <strong>ThreeJS</strong>, I've created
+              ads that not only <strong>capture attention</strong> but also
+              deliver an <strong>engaging and enjoyable experience</strong>.
+              This work involves
+              <strong>optimizing graphics and animations</strong> for
+              performance across various <strong>devices and platforms</strong>.
+              My focus has always been on delivering
+              <strong>high-quality and innovative ad solutions</strong> in the
+              competitive <strong>digital advertising</strong> space.
+            </p>
+            <div class="about-download-btn">
+              <a href="#!" class="btn btn-white">Download CV</a>
+            </div>
+          </div>
+          <!--  <div class="about-skills">
+            <div class="skill">
+              <div class="skill-title">Web design</div>
+              <div class="skill-percent">95%</div>
+              <div class="skillbar" style="width: 95%"></div>
+            </div>
+            <div class="skill">
+              <div class="skill-title">HTML/CSS</div>
+              <div class="skill-percent">90%</div>
+              <div class="skillbar" style="width: 90%"></div>
+            </div>
+            <div class="skill">
+              <div class="skill-title">JavaScript</div>
+              <div class="skill-percent">65%</div>
+              <div class="skillbar" style="width: 65%"></div>
+            </div>
+            <div class="skill">
+              <div class="skill-title">Photoshop</div>
+              <div class="skill-percent">80%</div>
+              <div class="skillbar" style="width: 80%"></div>
+            </div>
+          </div> -->
+        </div>
+        <!--  <div class="services-row">
+          <div class="service-card" data-aos="fade-down">
+            <img class="service-card-img" src="img/services/01.svg" alt="" />
+            <h3 class="service-card-title">UI/UX Design</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio
+              ullam, ipsum magnam expedita animi unde sapiente dolore alias
+              provident inventore, ut itaque aliquid ex eos deleniti laborum
+              nesciunt natus.
+            </p>
+          </div>
+
+          <div class="service-card" data-aos="fade-down">
+            <img class="service-card-img" src="img/services/02.svg" alt="" />
+            <h3 class="service-card-title">Frontend Development</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio
+              ullam, ipsum magnam expedita animi unde sapiente dolore alias
+              provident inventore, ut itaque aliquid ex eos deleniti laborum
+              nesciunt natus.
+            </p>
+          </div>
+
+          <div class="service-card" data-aos="fade-down">
+            <img class="service-card-img" src="img/services/03.svg" alt="" />
+            <h3 class="service-card-title">Content Writing</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio
+              ullam, ipsum magnam expedita animi unde sapiente dolore alias
+              provident inventore, ut itaque aliquid ex eos deleniti laborum
+              nesciunt natus.
+            </p>
+          </div>
+        </div> -->
+      </div>
+    </section>
+
+    <section id="projects" class="projects">
+      <div class="container container-lg">
+        <div class="projects-title">
+          <h2 class="title">Works</h2>
+        </div>
+
+        <div class="projects-row">
+          <div class="phone-container">
+            <div class="phone-screen">
+              <!--   <iframe src="https://talhaozdemir.github.io/portfolio/playables" /> -->
+              <iframe src="./playables/index.html" />
+            </div>
+            <img class="phone" src="img/iphone_15.png" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-row">
+          <div class="social-links-row footer-social">
+            <a href="#!">
+              <img
+                src="img/social_icons/github.svg"
+                alt="Link to GitHub account"
+              />
+            </a>
+
+            <a href="#!">
+              <img
+                src="img/social_icons/linkedin.svg"
+                alt="Link to linkedin profile"
+              />
+            </a>
+
+            <a href="#!">
+              <img src="img/social_icons/xing.svg" alt="Link to Xing profile" />
+            </a>
+
+            <a href="#!">
+              <img
+                src="img/social_icons/facebook.svg"
+                alt="Link to facebook profile"
+            /></a>
+
+            <a href="#!">
+              <img
+                src="img/social_icons/instagram.svg"
+                alt="Link to instagram profile"
+            /></a>
+          </div>
+
+          <div class="footer-copyright">
+            <p>
+              &copy; Copyright Talha Özdemir 2024 | Designed by Talha Özdemir
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div id="goToTop" class="goToTop">
+      <a href="#home">
+        <img src="img/icons/arrow_up.svg" alt="Back to top"
+      /></a>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"
+      integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
