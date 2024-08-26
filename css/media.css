@@ -185,6 +185,10 @@
   .contact-title {
     margin-bottom: 1rem;
   }
+
+  .footer-row {
+    padding: 0rem 0;
+  }
 }
 
 @media (max-width: 720px) {
@@ -230,6 +234,10 @@
 
   .footer-copyright p {
     font-size: 1.2rem;
+  }
+
+  .footer-row {
+    padding: 0rem 0;
   }
 }
 
