@@ -4,7 +4,7 @@
     <title>My Website</title>
     <link rel="stylesheet" href="../css//main.css" />
   </head>
-  <body style="overflow: hidden; user-select: none;">
+  <body style="overflow: hidden; user-select: none">
     <header style="text-align: center; margin: 4rem 0 1rem 0; font-size: 2.5rem">
       <h1>CLICK TO PLAY</h1>
       <!-- <div class="close-button">x</div> -->
@@ -26,6 +26,19 @@
       body.style.height = "100vh";
       body.style.margin = "0";
       body.style.padding = "0";
+
+      // Tüm <a> elemanlarını seç
+      const portfolioLinks = document.querySelectorAll(".portfolio a");
+
+      // Click event handler fonksiyonu
+      function handleClick(event) {
+        window.parent.showCloseButton();
+      }
+
+      // Her <a> elemanına click event'i ekle
+      portfolioLinks.forEach((link) => {
+        link.addEventListener("click", handleClick);
+      });
     </script>
   </body>
 </html>

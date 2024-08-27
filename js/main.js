@@ -41,3 +41,23 @@ window.addEventListener("scroll", function () {
 AOS.init({
   once: true,
 });
+
+const closeButton = document.getElementById("close-button");
+const iframe = document.getElementById("iframe");
+
+window.showCloseButton = function () {
+  if (closeButton) {
+    closeButton.style.display = "flex";
+  }
+};
+
+window.hideCloseButton = function () {
+  if (closeButton) {
+    closeButton.style.display = "none";
+  }
+};
+
+closeButton.addEventListener("click", function () {
+  window.hideCloseButton();
+  iframe.src = "playables/index.html";
+});

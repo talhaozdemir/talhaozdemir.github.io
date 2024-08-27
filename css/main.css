@@ -707,7 +707,7 @@ h5 {
   border-radius: 40px;
 }
 
-.close-button {
+#close-button {
   user-select: none;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   position: absolute;
