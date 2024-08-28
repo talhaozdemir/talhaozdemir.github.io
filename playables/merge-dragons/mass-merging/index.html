@@ -372,7 +372,7 @@ body,html{
 
 
       const interval = setInterval(() => {
-        if (window.app.globals.data) {
+        if (window.app && window.app.globals && window.app.globals.data) {
           hidePreloader();
           clearInterval(interval);
         }
