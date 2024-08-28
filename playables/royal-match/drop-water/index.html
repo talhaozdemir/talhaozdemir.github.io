@@ -1,73 +1,147 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>Game</title>
-<script defer src="./main.js"></script><style type="text/css">@keyframes pulse {
-    0% {
-        transform: scale(1, 1);
-    }
+    <script defer src="./main.js"></script>
+    <style type="text/css">
+      /* PRELOADER - START */
+      #preloader {
+        position: fixed;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        z-index: 3000;
+        height: 100vh;
+        width: 100vw;
+        opacity: 1;
+        overflow: hidden;
+        transition: opacity 0.5s ease-out;
+        z-index: 3000;
+      }
 
-    100% {
-        transform: scale(0.9, 0.9);
-    }
-}
+      .jumping-dots {
+        position: relative;
+        width: 6px;
+        height: 6px;
+        padding: 0;
+        display: inline-block;
+      }
 
-@keyframes twist {
-    0% {
-        transform: skewX(-10deg);
-    }
+      .jumping-dots > div {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        background: black;
+        border-radius: 50%;
+      }
 
-    100% {
-        transform: skewX(10deg);
-    }
-}
+      .jumping-dots > div:nth-of-type(1) {
+        left: 20px;
+      }
 
-@keyframes jump {
-    0% {
-        transform: translateY(0);
-    }
+      .jumping-dots > div:nth-of-type(3) {
+        left: -20px;
+      }
 
-    100% {
-        transform: translateY(-10px);
-    }
-}
+      .jumping-dots > div {
+        animation: jumping-dots 1.2s infinite ease;
+        animation-delay: 0.2s;
+      }
 
-@keyframes rotate {
-    0% {
-        transform: rotate(-4deg);
-    }
+      .jumping-dots > div:nth-of-type(1) {
+        animation-delay: 0.4s;
+      }
 
-    100% {
-        transform: rotate(4deg);
-    }
-}
+      .jumping-dots > div:nth-of-type(3) {
+        animation-delay: 0s;
+      }
 
-#modal{
-    z-index: 9999;
-}
+      @keyframes jumping-dots {
+        0% {
+          top: 0;
+        }
 
-*{
-    padding: 0;
-    margin: 0;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
+        40% {
+          top: -6px;
+        }
 
-#loading {
-    position: fixed;
-    margin: auto;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: 999;
-}
+        80% {
+          top: 0;
+        }
+      }
 
-/*
+      /* PRELOADER - END */
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1, 1);
+        }
+
+        100% {
+          transform: scale(0.9, 0.9);
+        }
+      }
+
+      @keyframes twist {
+        0% {
+          transform: skewX(-10deg);
+        }
+
+        100% {
+          transform: skewX(10deg);
+        }
+      }
+
+      @keyframes jump {
+        0% {
+          transform: translateY(0);
+        }
+
+        100% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(-4deg);
+        }
+
+        100% {
+          transform: rotate(4deg);
+        }
+      }
+
+      #modal {
+        z-index: 9999;
+      }
+
+      * {
+        padding: 0;
+        margin: 0;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      #loading {
+        position: fixed;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 999;
+      }
+
+      /*
 body {
     margin: 0;
     padding: 0;
@@ -92,277 +166,299 @@ body,html{
 }
 */
 
-body,html{
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    overflow: hidden;
-    background: 0 0;
+      body,
+      html {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        overflow: hidden;
+        background: 0 0;
 
-    touch-action: none;
-}
+        touch-action: none;
+      }
 
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-}
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
 
-#ui {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 99;
-}
+      #ui {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+      }
 
+      .screen {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
 
-.screen {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
+      .cover {
+        background: rgba(0, 0, 0, 0.5);
+      }
 
-.cover {
-    background: rgba(0, 0, 0, 0.5);
-}
+      .center-absolute {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        margin: auto;
+      }
 
-.center-absolute {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    margin: auto;
-}
+      .not-select {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
 
-
-.not-select{
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-.hide {
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 1s, visiblility 1s;
-}
-
-.show {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 1s, visiblility 1s;
-}
-
-.simple-pulse{
-    animation-name: pulse;
-    animation-duration: 0.5s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-#animation_container {
-	position:absolute;
-	margin:auto;
-	left:0;right:0;
-	top:0;bottom:0;
-}
-
-
-@keyframes alpha {
-    0% {
-        opacity: 1;
-    }
-
-    100% {
+      .hide {
+        visibility: hidden;
         opacity: 0;
-    }
-}
+        transition: opacity 1s, visiblility 1s;
+      }
 
-.rail-hand{
-    position: absolute;
-    width:120px;
-    height:120px;
-
-    animation-name: pulse;
-    animation-duration: 0.5s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-.rail-hand img{
-    transform: rotate(-10deg);
-    max-width: 100%;
-    max-height: 100%;
-}
-
-.low-fuel{
-    position: absolute;
-    transform-origin: top left;
-
-    animation-name: alpha;
-    animation-duration: 0.5s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-
-.info-text{
-    position: absolute;
-    text-align: center;
-    font-size: 40px;
-    font-family: ui-font;
-    width:100%;
-
-    color: #d1445e;
-
-    animation-name: pulse;
-    animation-duration: 0.15s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-
-}
-
-.circle-bar{
-    position: absolute;
-    left: 100px;
-    top: 100px;
-    background: #ffffff;
-    width: 150px;
-    height: 150px;
-    z-index: 990;
-}
-
-.rail-hand, .text-box{
-    /*transition:  left 0.5s, top 0.5s;*/
-}
-@keyframes alpha2 {
-    0% {
+      .show {
+        visibility: visible;
         opacity: 1;
-    }
+        transition: opacity 1s, visiblility 1s;
+      }
 
-    100% {
-        opacity: 0;
-    }
-}
+      .simple-pulse {
+        animation-name: pulse;
+        animation-duration: 0.5s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+      }
 
+      #animation_container {
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
 
-#custom-preloader-pf{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #333;
-    z-index: 99999;
+      @keyframes alpha {
+        0% {
+          opacity: 1;
+        }
 
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+        100% {
+          opacity: 0;
+        }
+      }
 
-    justify-content: center;
-    justify-content: space-evenly;
+      .rail-hand {
+        position: absolute;
+        width: 120px;
+        height: 120px;
 
-}
-/*TOP PART*/
-.custom-preloader-item-top{
-    width: 50%;
-    max-height: 40%;
-    text-align: center;
-    
+        animation-name: pulse;
+        animation-duration: 0.5s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+      }
 
-}
+      .rail-hand img {
+        transform: rotate(-10deg);
+        max-width: 100%;
+        max-height: 100%;
+      }
 
-.custom-preloader-item-top>*{
-    max-width: 100%;
-    max-height: 100%;
-}
+      .low-fuel {
+        position: absolute;
+        transform-origin: top left;
 
-/*BOTTOM PART*/
-.custom-preloader-item-bottom{
-    max-width: 40%;
-    max-height: 10%;
-    text-align: center;
+        animation-name: alpha;
+        animation-duration: 0.5s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+      }
 
-}
+      .info-text {
+        position: absolute;
+        text-align: center;
+        font-size: 40px;
+        font-family: ui-font;
+        width: 100%;
 
-.custom-preloader-item-bottom>*{
-    max-width: 100%;
-    max-height: 100%;
-}
+        color: #d1445e;
 
+        animation-name: pulse;
+        animation-duration: 0.15s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+      }
 
+      .circle-bar {
+        position: absolute;
+        left: 100px;
+        top: 100px;
+        background: #ffffff;
+        width: 150px;
+        height: 150px;
+        z-index: 990;
+      }
 
-/* PF - LOGO */
+      .rail-hand,
+      .text-box {
+        /*transition:  left 0.5s, top 0.5s;*/
+      }
+      @keyframes alpha2 {
+        0% {
+          opacity: 1;
+        }
 
-@keyframes gear-turn {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
-}
+        100% {
+          opacity: 0;
+        }
+      }
 
-@keyframes play-pulse {
-    0%   {transform: scale(1);}
-    14%  {transform: scale(0.9);}
-    28%  {transform: scale(1);}
-    100% {transform: scale(1);}
-}
+      #custom-preloader-pf {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #333;
+        z-index: 99999;
 
+        display: flex;
+        align-items: center;
+        flex-direction: column;
 
-#custom-pf-logo{
-    width: 250px;
-    height: 220px;
+        justify-content: center;
+        justify-content: space-evenly;
+      }
+      /*TOP PART*/
+      .custom-preloader-item-top {
+        width: 50%;
+        max-height: 40%;
+        text-align: center;
+      }
 
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
+      .custom-preloader-item-top > * {
+        max-width: 100%;
+        max-height: 100%;
+      }
 
-    transform-origin: bottom left;
-    transform: scale(0.15);
+      /*BOTTOM PART*/
+      .custom-preloader-item-bottom {
+        max-width: 40%;
+        max-height: 10%;
+        text-align: center;
+      }
 
-}
+      .custom-preloader-item-bottom > * {
+        max-width: 100%;
+        max-height: 100%;
+      }
 
-#custom-play{
-    position: absolute;
-    left: 0;
-    top: 15px;
+      /* PF - LOGO */
 
-    animation-name: play-pulse;
-    animation-duration: 0.7s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-}
+      @keyframes gear-turn {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
 
-#custom-title{
-    position: absolute;
-    left: 300px;
-    top: 20px;
+      @keyframes play-pulse {
+        0% {
+          transform: scale(1);
+        }
+        14% {
+          transform: scale(0.9);
+        }
+        28% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
 
-    /* animation-name: play-pulse;
+      #custom-pf-logo {
+        width: 250px;
+        height: 220px;
+
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+
+        transform-origin: bottom left;
+        transform: scale(0.15);
+      }
+
+      #custom-play {
+        position: absolute;
+        left: 0;
+        top: 15px;
+
+        animation-name: play-pulse;
+        animation-duration: 0.7s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+      }
+
+      #custom-title {
+        position: absolute;
+        left: 300px;
+        top: 20px;
+
+        /* animation-name: play-pulse;
     animation-duration: 0.7s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out; */
-}
+      }
 
-#custom-gear{
-    position: absolute;
-    left: 45px;
+      #custom-gear {
+        position: absolute;
+        left: 45px;
 
-    animation-name: gear-turn;
-    animation-duration: 2.66s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-}
-</style></head>
+        animation-name: gear-turn;
+        animation-duration: 2.66s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+      }
+    </style>
+  </head>
 
-<body>
-</body>
+  <body>
+    <div id="preloader">
+      <div class="jumping-dots">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <script>
+      function hidePreloader() {
+        const preloader = document.getElementById("preloader");
+        preloader.style.display = "none";
+      }
 
+      const interval = setInterval(() => {
+        if (window.app.globals.data) {
+          hidePreloader();
+          clearInterval(interval);
+        }
+      }, 100);
+    </script>
+  </body>
 </html>

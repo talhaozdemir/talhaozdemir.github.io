@@ -2,17 +2,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta
-      id="viewport"
-      name="viewport"
-      content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"
-    />
+    <meta id="viewport" name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
 
     <script>
       var clickTag = "https://apps.apple.com/app/merge-dragons/id1208952944";
       var iosLink = "https://apps.apple.com/app/merge-dragons/id1208952944";
-      var androidLink =
-        "https://play.google.com/store/apps/details?id=com.gramgames.mergedragons";
+      var androidLink = "https://play.google.com/store/apps/details?id=com.gramgames.mergedragons";
 
       var userAgent = navigator.userAgent || navigator.vendor;
       var clickTag = /android/i.test(userAgent) ? androidLink : iosLink;
@@ -48,6 +43,78 @@
     <style></style>
 
     <style>
+      /* PRELOADER - START */
+      #preloader {
+        position: fixed;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        z-index: 3000;
+        height: 100vh;
+        width: 100vw;
+        opacity: 1;
+        overflow: hidden;
+        transition: opacity 0.5s ease-out;
+        z-index: 3000;
+      }
+
+      .jumping-dots {
+        position: relative;
+        width: 6px;
+        height: 6px;
+        padding: 0;
+        display: inline-block;
+      }
+
+      .jumping-dots > div {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        background: black;
+        border-radius: 50%;
+      }
+
+      .jumping-dots > div:nth-of-type(1) {
+        left: 20px;
+      }
+
+      .jumping-dots > div:nth-of-type(3) {
+        left: -20px;
+      }
+
+      .jumping-dots > div {
+        animation: jumping-dots 1.2s infinite ease;
+        animation-delay: 0.2s;
+      }
+
+      .jumping-dots > div:nth-of-type(1) {
+        animation-delay: 0.4s;
+      }
+
+      .jumping-dots > div:nth-of-type(3) {
+        animation-delay: 0s;
+      }
+
+      @keyframes jumping-dots {
+        0% {
+          top: 0;
+        }
+
+        40% {
+          top: -6px;
+        }
+
+        80% {
+          top: 0;
+        }
+      }
+
+      /* PRELOADER - END */
       @keyframes pulse {
         0% {
           transform: scale(1, 1);
@@ -289,5 +356,27 @@ body,html{
       }
     </style>
   </head>
-  <body></body>
+  <body>
+    <div id="preloader">
+      <div class="jumping-dots">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <script>
+      function hidePreloader() {
+        const preloader = document.getElementById("preloader");
+        preloader.style.display = "none";
+      }
+
+
+      const interval = setInterval(() => {
+        if (window.app.globals.data) {
+          hidePreloader();
+          clearInterval(interval);
+        }
+      }, 100);
+    </script>
+  </body>
 </html>
