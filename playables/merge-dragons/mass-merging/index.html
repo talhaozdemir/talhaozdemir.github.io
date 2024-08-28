@@ -370,11 +370,10 @@ body,html{
         preloader.style.display = "none";
       }
 
-
       const interval = setInterval(() => {
         if (window.app && window.app.globals && window.app.globals.data) {
-          hidePreloader();
           clearInterval(interval);
+          hidePreloader();
         }
       }, 100);
     </script>
