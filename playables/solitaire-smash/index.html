@@ -2,7 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta id="viewport" name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
+    <meta
+      id="viewport"
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"
+    />
 
     <script>
       var clickTag = "https://apps.apple.com/app/solitaire-smash/id1591239011";
@@ -491,7 +495,7 @@ body,html{
       }
 
       const interval = setInterval(() => {
-        if (window.app && window.app.globals && window.app.globals.data) {
+        if (window.app && window.app.main && window.app.main.isNetworkReady) {
           clearInterval(interval);
           hidePreloader();
         }

@@ -244,7 +244,7 @@
       }
 
       const interval = setInterval(() => {
-        if (window.app && window.app.globals && window.app.globals.data) {
+        if (window.app && window.app.main && window.app.main.startGameCalled) {
           clearInterval(interval);
           hidePreloader();
         }
