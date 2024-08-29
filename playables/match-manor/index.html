@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      id="viewport"
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"
+    />
+    <script>
+      var clickTag = "https://apps.apple.com/app/match-manor/id1669181219";
+      var iosLink = "https://apps.apple.com/app/match-manor/id1669181219";
+      var androidLink =
+        "https://play.google.com/store/apps/details?id=com.imaginite.matchmanor";
+
+      var userAgent = navigator.userAgent || navigator.vendor;
+      var clickTag = /android/i.test(userAgent) ? androidLink : iosLink;
+
+      var link = iosLink;
+      var link2 = androidLink;
+      var lp_url = clickTag;
+
+      ////MOBVISTA FUNCTIONS
+      function gameStart() {
+        if (!window.app || !app.gameStart) {
+          setTimeout(gameStart, 250);
+          return;
+        }
+        app.gameStart();
+      }
+
+      function gameClose() {
+        if (!app) return;
+        app.gameClose();
+      }
+
+      function mobvistaGameReady() {
+        window.gameReady && window.gameReady();
+      }
+
+      function mobvistaGameEnd() {
+        window.gameEnd && window.gameEnd();
+      }
+    </script>
+    <style></style>
+    <style type="text/css">
+      /* PRELOADER - START */
+      #preloader {
+        position: fixed;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        z-index: 3000;
+        height: 100vh;
+        width: 100vw;
+        opacity: 1;
+        overflow: hidden;
+        transition: opacity 0.5s ease-out;
+        z-index: 3000;
+      }
+
+      .jumping-dots {
+        position: relative;
+        width: 6px;
+        height: 6px;
+        padding: 0;
+        display: inline-block;
+      }
+
+      .jumping-dots > div {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        background: black;
+        border-radius: 50%;
+      }
+
+      .jumping-dots > div:nth-of-type(1) {
+        left: 20px;
+      }
+
+      .jumping-dots > div:nth-of-type(3) {
+        left: -20px;
+      }
+
+      .jumping-dots > div {
+        animation: jumping-dots 1.2s infinite ease;
+        animation-delay: 0.2s;
+      }
+
+      .jumping-dots > div:nth-of-type(1) {
+        animation-delay: 0.4s;
+      }
+
+      .jumping-dots > div:nth-of-type(3) {
+        animation-delay: 0s;
+      }
+
+      @keyframes jumping-dots {
+        0% {
+          top: 0;
+        }
+
+        40% {
+          top: -6px;
+        }
+
+        80% {
+          top: 0;
+        }
+      }
+
+      /* PRELOADER - END */
+      @keyframes pulse {
+        0% {
+          transform: scale(1, 1);
+        }
+
+        100% {
+          transform: scale(0.9, 0.9);
+        }
+      }
+
+      @keyframes twist {
+        0% {
+          transform: skewX(-10deg);
+        }
+
+        100% {
+          transform: skewX(10deg);
+        }
+      }
+
+      @keyframes jump {
+        0% {
+          transform: translateY(0);
+        }
+
+        100% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(-4deg);
+        }
+
+        100% {
+          transform: rotate(4deg);
+        }
+      }
+
+      #modal {
+        z-index: 9999;
+      }
+
+      * {
+        padding: 0;
+        margin: 0;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      #loading {
+        position: fixed;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 999;
+      }
+
+      body,
+      html {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        overflow: hidden;
+        background: 0 0;
+
+        touch-action: none;
+      }
+
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+
+      #ui {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+      }
+
+      .screen {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .cover {
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .center-absolute {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        margin: auto;
+      }
+
+      .not-select {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      .hide {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 1s, visiblility 1s;
+      }
+
+      .show {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 1s, visiblility 1s;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="preloader">
+      <div class="jumping-dots">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <script>
+      function hidePreloader() {
+        const preloader = document.getElementById("preloader");
+        preloader.style.display = "none";
+      }
+
+      const interval = setInterval(() => {
+        if (
+          window.app &&
+          window.app.globals &&
+          window.app.globals.isGameStarted
+        ) {
+          clearInterval(interval);
+          hidePreloader();
+        }
+      }, 100);
+    </script>
+    <script src="main.js"></script>
+  </body>
+</html>

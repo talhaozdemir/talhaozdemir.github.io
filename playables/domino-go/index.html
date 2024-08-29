@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      id="viewport"
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"
+    />
+    <style>
+         
+      * {
+        overflow: hidden;
+      }
+
+      html {
+        -ms-touch-action: none;
+      }
+
+      body,
+      canvas,
+      div {
+        display: block;
+        outline: 0;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -khtml-user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      input::-webkit-inner-spin-button,
+      input::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      body {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        border: 0;
+        margin: 0;
+        cursor: default;
+        color: #888;
+        background-color: #333;
+        text-align: center;
+        font-family: Helvetica, Verdana, Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #Cocos2dGameContainer {
+        position: absolute;
+        margin: 0;
+        overflow: hidden;
+        left: 0;
+        top: 0;
+        display: -webkit-box;
+        -webkit-box-orient: horizontal;
+        -webkit-box-align: center;
+        -webkit-box-pack: center;
+      }
+
+      canvas {
+        background-color: rgba(0, 0, 0, 0);
+      }
+
+      a:link,
+      a:visited {
+        color: #666;
+      }
+
+      a:active,
+      a:hover {
+        color: #666;
+      }
+
+      p.header {
+        font-size: small;
+      }
+
+      p.footer {
+        font-size: x-small;
+      }
+
+      .progress-bar {
+        background-color: #1a1a1a;
+        position: absolute;
+        left: 25%;
+        top: 80%;
+        height: 14px;
+        padding: 5px;
+        width: 50%;
+        border-radius: 5px;
+        box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+      }
+
+      .progress-bar span {
+        display: block;
+        height: 100%;
+        border-radius: 3px;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+        transition: width 0.4s ease-in-out;
+        background-color: #34c2e3;
+      }
+
+      .stripes span {
+        background-size: 30px 30px;
+        background-image: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.15) 25%,
+          transparent 25%,
+          transparent 50%,
+          rgba(255, 255, 255, 0.15) 50%,
+          rgba(255, 255, 255, 0.15) 75%,
+          transparent 75%,
+          transparent
+        );
+        animation: animate-stripes 1s linear infinite;
+      }
+
+      @keyframes animate-stripes {
+        0% {
+          background-position: 0 0;
+        }
+
+        100% {
+          background-position: 60px 0;
+        }
+      }
+
+      #Cocos3dGameContainer,
+      #GameCanvas,
+      #GameDiv {
+        width: 100%;
+        height: 100%;
+      }
+
+          /* PRELOADER - START */
+          #preloader {
+        position: fixed;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        z-index: 3000;
+        height: 100vh;
+        width: 100vw;
+        opacity: 1;
+        overflow: hidden;
+        transition: opacity 0.5s ease-out;
+        z-index: 3000;
+      }
+
+      .jumping-dots {
+        position: relative;
+        width: 6px;
+        height: 6px;
+        padding: 0;
+        display: inline-block;
+      }
+
+      .jumping-dots > div {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        background: black;
+        border-radius: 50%;
+      }
+
+      .jumping-dots > div:nth-of-type(1) {
+        left: 20px;
+      }
+
+      .jumping-dots > div:nth-of-type(3) {
+        left: -20px;
+      }
+
+      .jumping-dots > div {
+        animation: jumping-dots 1.2s infinite ease;
+        animation-delay: 0.2s;
+      }
+
+      .jumping-dots > div:nth-of-type(1) {
+        animation-delay: 0.4s;
+      }
+
+      .jumping-dots > div:nth-of-type(3) {
+        animation-delay: 0s;
+      }
+
+      @keyframes jumping-dots {
+        0% {
+          top: 0;
+        }
+
+        40% {
+          top: -6px;
+        }
+
+        80% {
+          top: 0;
+        }
+      }
+
+      /* PRELOADER - END */
+    </style>
+    <script>
+      var clickTag =
+        "https://apps.apple.com/app/domino-go-dominoes-board-game/id1574156168";
+      var iosLink =
+        "https://apps.apple.com/app/domino-go-dominoes-board-game/id1574156168";
+      var androidLink =
+        "https://play.google.com/store/apps/details?id=com.beachbum.domino";
+
+      var userAgent = navigator.userAgent || navigator.vendor;
+      var clickTag = /android/i.test(userAgent) ? androidLink : iosLink;
+
+      var link = iosLink;
+      var link2 = androidLink;
+      var lp_url = clickTag;
+
+      ////MOBVISTA FUNCTIONS
+      function gameStart() {
+        if (!window.app || !app.gameStart) {
+          setTimeout(gameStart, 250);
+          return;
+        }
+        app.gameStart();
+      }
+
+      function gameClose() {
+        if (!app) return;
+        app.gameClose();
+      }
+
+      function mobvistaGameReady() {
+        window.gameReady && window.gameReady();
+      }
+
+      function mobvistaGameEnd() {
+        window.gameEnd && window.gameEnd();
+      }
+    </script>
+    <script type="text/javascript">
+      var goGame = () => {
+        console.log("go");
+        (function () {
+          "use strict";
+          const a = [
+            "replace",
+            "621741NJxRoB",
+            "fonts",
+            "xxxx__",
+            "27915cHUpNp",
+            "71411rckZnK",
+            "createVideoPlayer",
+            "createObjectURL",
+            "call",
+            "__res",
+            "535039zGHrlV",
+            "warn",
+            "type",
+            "type\x20error",
+            "url",
+            "substring",
+            "load\x20fail",
+            "evaluateScript",
+            "setAttribute",
+            "__load_listener",
+            "appendChild",
+            "evaluateImage",
+            "error",
+            "err",
+            "src/system.bundle",
+            "defineProperty",
+            "addEventListener",
+            "body",
+            "send",
+            "bullet.wasm",
+            "parse",
+            "createElement",
+            "__js",
+            "723954EWztio",
+            "responseType",
+            "response",
+            "342026UoYgzu",
+            "catch",
+            "src/import-map.json",
+            "TEST",
+            "length",
+            "indexOf",
+            "assetManager",
+            "1fqLpDM",
+            "internal",
+            "Image",
+            "charCodeAt",
+            "open",
+            "VideoPlayerImplManager",
+            "1wZzFuF",
+            "_custom",
+            "getImpl",
+            "systemjs-importmap",
+            "add",
+            "getOwnPropertyDescriptor",
+            "dumb",
+            "downloader",
+            "__proto__",
+            "XMLHttpRequest",
+            "atob",
+            "buffer",
+            "match",
+            "set",
+            "10nLHbsL",
+            "src",
+            "import",
+            "bullet.cocos",
+            "30993uRLqui",
+            "script",
+            "register",
+            "url(",
+            "no\x20find\x20",
+            "2EXYrfi",
+            "loaded",
+            "text",
+            "video",
+          ];
+          const A = b;
+          (function (c, d) {
+            const z = b;
+            while (!![]) {
+              try {
+                const e =
+                  parseInt(z(0x107)) * parseInt(z(0x119)) +
+                  -parseInt(z(0xe9)) +
+                  -parseInt(z(0x10b)) * parseInt(z(0xf3)) +
+                  -parseInt(z(0x118)) +
+                  parseInt(z(0x110)) * -parseInt(z(0xec)) +
+                  parseInt(z(0xf9)) * parseInt(z(0xd2)) +
+                  parseInt(z(0x115));
+                if (e === d) break;
+                else c["push"](c["shift"]());
+              } catch (f) {
+                c["push"](c["shift"]());
+              }
+            }
+          })(a, 0x62a08);
+
+          function b(c, d) {
+            c = c - 0xd2;
+            let e = a[c];
+            return e;
+          }
+          window[A(0xfa)] = function () {
+            const a1 = A;
+
+            function c() {
+              const B = b;
+              var n = document[B(0xe7)](B(0x10c));
+              (n[B(0xd4)] = B(0xfc)),
+                (n[B(0xff)] = B(0xef)),
+                (n["text"] = e(B(0xee))),
+                document[B(0xe3)][B(0xdc)](n);
+            }
+            c();
+
+            function d(n, o, p) {
+              const C = b;
+              for (var q in o) {
+                if (q == n) return q;
+                const r = n[C(0xf1)](q);
+                if (r != -0x1 && r + q[C(0xf0)] == n[C(0xf0)]) return q;
+              }
+              return null;
+            }
+
+            function e(n) {
+              const D = b;
+              return window[D(0x11d)][d(n, window[D(0x11d)])];
+            }
+
+            function f(n) {
+              const E = b;
+              if (n[E(0xf1)](E(0xe5)) != -0x1)
+                for (var o in window[E(0xe8)]) {
+                  if (o[E(0xf1)](E(0x10a)) != -0x1) {
+                    n = o;
+                    break;
+                  }
+                }
+              let p = d(n, window[E(0xe8)]);
+              var q = window[E(0xe8)][p];
+              return q && delete window[E(0xe8)][p], q;
+            }
+
+            function g() {
+              const F = b,
+                n = document["createElement"];
+              document[F(0xe7)] = function (o, p) {
+                const G = F,
+                  q = n[G(0x11c)](document, o, p);
+                if (o == G(0x10c)) {
+                  q[G(0xe2)] = function (s, t) {
+                    const H = G;
+                    s == "load" && (this[H(0xdb)] = t);
+                  };
+                  const r = Object[G(0xfe)](q["__proto__"], "src");
+                  q[G(0xd9)] = (s) => {
+                    const I = G,
+                      t = f(s);
+                    q[I(0xda)](I(0x108), "");
+                    if (!t) {
+                      r[I(0x11c)](q, s);
+                      return;
+                    }
+                    console[I(0xd3)](s),
+                      eval(t),
+                      setTimeout(() => {
+                        q["__load_listener"](), window["cc"] && h();
+                      });
+                  };
+                }
+                return q;
+              };
+            }
+
+            function h() {
+              const J = b;
+              if (window[J(0x117)]) return;
+              window["xxxx__"] = !![];
+
+              function n(p, q) {
+                const K = J;
+                let r = p,
+                  s = r["split"](","),
+                  t = s[0x0][K(0x105)](/:(.*?);/),
+                  u = (t && t[K(0xf0)] > 0x1 ? t[0x1] : type) || type,
+                  v = window[K(0x103)](s[0x1]),
+                  w = new ArrayBuffer(v["length"]),
+                  x = new Uint8Array(w);
+                for (let y = 0x0; y < v[K(0xf0)]; y++) {
+                  x[y] = v[K(0xf6)](y);
+                }
+                return new Blob([w], {
+                  type: u,
+                });
+              }
+              if (cc[J(0xf4)][J(0xf8)]) {
+                function p(r, s, t) {
+                  const L = J;
+                  var u = document[L(0xe7)](L(0x113)),
+                    v = document[L(0xe7)]("source");
+                  u[L(0xdc)](v), t(null, u);
+                }
+                cc["assetManager"]["downloader"][J(0x10d)]({
+                  ".mp4": p,
+                  ".avi": p,
+                  ".mov": p,
+                  ".mpg": p,
+                  ".mpeg": p,
+                  ".rm": p,
+                  ".rmvb": p,
+                });
+                const q = cc[J(0xf4)]["VideoPlayerImplManager"][J(0xfb)];
+                cc[J(0xf4)][J(0xf8)][J(0xfb)] = function (r) {
+                  const M = J,
+                    s = q[M(0x11c)](this, r),
+                    t = s[M(0x11a)];
+                  return (
+                    (s[M(0x11a)] = function (u) {
+                      const N = M;
+                      var v = e(u);
+                      if (v)
+                        return (
+                          (v = n(v)),
+                          (v = URL[N(0x11b)](v)),
+                          t[N(0x11c)](this, v)
+                        );
+                      return t[N(0x11c)](this, u);
+                    }),
+                    s
+                  );
+                };
+              }
+
+              function o() {
+                const Q = J;
+
+                function r(s, t, u) {
+                  const O = b;
+                  var v = s[O(0x114)](/[.\/ "'\\]*/g, ""),
+                    w = e(s);
+                  if (w == null) {
+                    u();
+                    return;
+                  }
+                  var x = new FontFace(v, O(0x10e) + w + ")");
+                  document[O(0x116)][O(0xfd)](x),
+                    x["load"](),
+                    x[O(0x111)]["then"](
+                      function () {
+                        u(null, v);
+                      },
+                      function () {
+                        const P = O;
+                        console[P(0xde)](P(0xd6) + s + P(0xd8)), u(null, v);
+                      }
+                    );
+                }
+                cc[Q(0xf2)][Q(0x100)]["register"]({
+                  ".font": r,
+                  ".eot": r,
+                  ".ttf": r,
+                  ".woff": r,
+                  ".svg": r,
+                  ".ttc": r,
+                });
+              }
+              o();
+            }
+            g();
+
+            function i(o) {
+              const R = b;
+              var p = atob(o[R(0xd7)](o[R(0xf1)](",") + 0x1)),
+                q = p[R(0xf0)],
+                r = new Uint8Array(q);
+              while (q--) {
+                r[q] = p["charCodeAt"](q);
+              }
+              return r[R(0x104)];
+            }
+
+            function j() {
+              const S = b,
+                n = window[S(0x102)];
+              window["XMLHttpRequest"] = function () {
+                const T = S,
+                  o = new n();
+                return (
+                  (o[T(0xf7)] = function (p, q, r, s) {
+                    const U = T,
+                      t = e(q);
+                    if (!t) {
+                      o[U(0x101)][U(0xf7)][U(0x11c)](o, p, q, !![], s);
+                      return;
+                    }
+                    o[U(0xe4)] = function () {
+                      const V = U;
+                      let u = null;
+                      switch (this[V(0xea)]) {
+                        case "json":
+                          u = JSON[V(0xe6)](t);
+                          break;
+                        case V(0x112):
+                          u = t;
+                          break;
+                        case "arraybuffer":
+                          u = i(t);
+                          break;
+                        default:
+                          console[V(0xdf)](V(0xd5), q, this["responseType"]);
+                          break;
+                      }
+                      Object[V(0xe1)](this, V(0xeb), {
+                        get: function () {
+                          return u;
+                        },
+                      }),
+                        this["onload"]();
+                    };
+                  }),
+                  o
+                );
+              };
+            }
+            j();
+
+            function k() {
+              const W = b,
+                n = window[W(0xf5)];
+              window[W(0xf5)] = function () {
+                const X = W,
+                  o = new n(),
+                  p = Object[X(0xfe)](o["__proto__"], X(0x108));
+                return (
+                  (o[X(0xdd)] = (q) => {
+                    const Y = X,
+                      r = e(q);
+                    r ? p[Y(0x106)][Y(0x11c)](o, r) : p["set"][Y(0x11c)](o, q);
+                  }),
+                  o
+                );
+              };
+            }
+            k();
+
+            function l(n) {
+              const Z = b;
+              for (var o in window[Z(0x11d)]) {
+                if (o[Z(0xf1)](n) == 0x0) return o;
+              }
+              throw Error(Z(0x10f) + n);
+            }
+
+            function m(n) {
+              const a0 = b;
+              eval(window["__js"][n]), delete window[a0(0xe8)][n];
+            }
+            m(l("src/polyfills.bundle")),
+              m(l(a1(0xe0))),
+              System[a1(0x109)]("./" + l("index"))[a1(0xed)](function (n) {
+                const a2 = a1;
+                console[a2(0xde)](n);
+              });
+          };
+        })();
+        (function () {
+          "use strict";
+          const a = [
+            "then",
+            "733903MiOQmB",
+            "690537TRafou",
+            "__res",
+            "VConsole",
+            "load\x20res",
+            "file",
+            "vconsole.min.js",
+            "8299oOBCmb",
+            "144378grsBpu",
+            "__js",
+            "split",
+            "__zip",
+            "files",
+            "35913Krlgdb",
+            "1ZyXhkz",
+            "577666rPFBQf",
+            "length",
+            "11qLKtVy",
+            "time",
+            "timeEnd",
+            "dir",
+            "363546higBLQ",
+            "1sHAjmh",
+            ".js",
+          ];
+          (function (c, d) {
+            const m = b;
+            while (!![]) {
+              try {
+                const e =
+                  parseInt(m(0xf1)) +
+                  -parseInt(m(0xf9)) +
+                  -parseInt(m(0xfd)) * parseInt(m(0xfa)) +
+                  parseInt(m(0xfe)) +
+                  parseInt(m(0x105)) +
+                  -parseInt(m(0x104)) * -parseInt(m(0xf5)) +
+                  parseInt(m(0xf3)) * parseInt(m(0xf2));
+                if (e === d) break;
+                else c["push"](c["shift"]());
+              } catch (f) {
+                c["push"](c["shift"]());
+              }
+            }
+          })(a, 0x6bfde);
+
+          function b(c, d) {
+            c = c - 0xf0;
+            let e = a[c];
+            return e;
+          }
+          (function () {
+            console["timeEnd"]("load\x20html");
+            if (!window["JSZip"]) {
+              d();
+              return;
+            }
+            c();
+
+            function c() {
+              const n = b;
+              console[n(0xf6)](n(0x101)),
+                (window[n(0xff)] = window[n(0xff)] || {});
+              const g = new JSZip();
+              let h = 0x0;
+              g["loadAsync"](window[n(0x108)], {
+                base64: !![],
+              })
+                [n(0xfc)](function (i) {
+                  const o = n;
+                  for (var j in i[o(0xf0)]) {
+                    if (i[o(0xf0)][j][o(0xf8)]) continue;
+                    h++;
+                    let k = j;
+                    i[o(0x102)](k)
+                      ["async"]("string")
+                      [o(0xfc)](function (l) {
+                        const p = o;
+                        (window["__res"][k] = l),
+                          h--,
+                          h == 0x0 && (console[p(0xf7)]("load\x20res"), d());
+                      });
+                  }
+                })
+                ["catch"]((i) => {
+                  throw i;
+                });
+            }
+
+            function d() {
+              const q = b;
+              window[q(0x106)] = {};
+              for (var g in window[q(0xff)]) {
+                let h = g[q(0x107)](".");
+                (h = "." + h[h[q(0xf4)] - 0x1]),
+                  h == q(0xfb) && (window[q(0x106)][g] = window["__res"][g]);
+              }
+              f();
+            }
+
+            function e() {
+              const r = b;
+              window[r(0x106)]["vconsole.min.js"] &&
+                (eval(window[r(0x106)][r(0x103)]),
+                delete window[r(0x106)][r(0x103)],
+                window[r(0x100)] && (window["vConsole"] = new VConsole()));
+            }
+
+            function f() {
+              e(), _custom();
+            }
+          })();
+        })();
+
+        // console.log("go2");
+      };
+    </script>
+  </head>
+  <body>
+    <div id="GameDiv">
+      <div id="Cocos3dGameContainer">
+        <canvas
+          id="GameCanvas"
+          oncontextmenu="event.preventDefault()"
+          tabindex="0"
+        ></canvas>
+      </div>
+    </div>
+    <div id="preloader">
+      <div class="jumping-dots">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <script>
+      function hidePreloader() {
+        const preloader = document.getElementById("preloader");
+        preloader.style.display = "none";
+      }
+
+      const interval = setInterval(() => {
+        if (
+          window.app &&
+          window.app.main &&
+          window.app.main.isNetworkReady
+        ) {
+          clearInterval(interval);
+          hidePreloader();
+        }
+      }, 100);
+    </script>
+    <script src="main.js"></script>
+  </body>
+</html>
