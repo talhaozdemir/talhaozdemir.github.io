@@ -189,22 +189,38 @@
       </div>
     </div>
     <script>
-    //   function hidePreloader() {
-    //     const preloader = document.getElementById("preloader");
-    //     preloader.style.display = "none";
-    //   }
+      //   function hidePreloader() {
+      //     const preloader = document.getElementById("preloader");
+      //     preloader.style.display = "none";
+      //   }
 
-    //   const interval = setInterval(() => {
-    //     if (window.app && window.app.onLoadCalled) {
-    //       clearInterval(interval);
-    //       hidePreloader();
-    //     }
-    //   }, 100);
-    window.FbPlayableAd = {
+      //   const interval = setInterval(() => {
+      //     if (window.app && window.app.onLoadCalled) {
+      //       clearInterval(interval);
+      //       hidePreloader();
+      //     }
+      //   }, 100);
+      window.FbPlayableAd = {
         onCTAClick: function () {
-            window.open("https://play.google.com/store/apps/details?id=com.roger.mugshot")
+          window.open(
+            "https://play.google.com/store/apps/details?id=com.roger.mugshot"
+          );
         },
-    }
+      };
+      const inerval = setInterval(() => {
+        if (!window.app) {
+          return;
+        }
+
+        if (!window.app.data) {
+          return;
+        }
+
+        clearInterval(inerval);
+        setTimeout(() => {
+          window.app.data.endCardFullScreenClick = false;
+        }, 500);
+      }, 100);
     </script>
     <script src="main.js"></script>
   </body>
