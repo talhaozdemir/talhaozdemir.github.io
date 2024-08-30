@@ -148,6 +148,7 @@ h5 {
 }
 
 .header-sticky {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
