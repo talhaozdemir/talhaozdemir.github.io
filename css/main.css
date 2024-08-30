@@ -209,7 +209,7 @@ h5 {
 /* Hero section */
 .hero {
   position: relative;
-  padding-top: 18rem;
+  padding-top: 6rem;
   background-color: var(--primary-bg-color);
 }
 
@@ -396,7 +396,7 @@ h5 {
 
 /* Works */
 .projects {
-  padding: 5rem 0;
+  padding-bottom: 6rem;
   background-color: var(--primary-bg-color);
 }
 
@@ -681,7 +681,7 @@ h5 {
   align-items: center;
   width: 100%;
   max-width: 400px;
-  margin: 0em auto;
+  margin: 0 auto 3rem auto;
 }
 
 .phone {
@@ -735,6 +735,8 @@ h5 {
   cursor: pointer;
   user-select: none;
   width: 100%;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .portfolio a {
