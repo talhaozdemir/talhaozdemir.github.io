@@ -209,7 +209,7 @@ h5 {
 /* Hero section */
 .hero {
   position: relative;
-  padding-top: 6rem;
+  padding: 6rem 0;
   background-color: var(--primary-bg-color);
 }
 
@@ -256,6 +256,17 @@ h5 {
   height: auto;
   vertical-align: bottom;
   border-radius: 50%;
+  border: 1rem solid var(--primary-accent);
+}
+
+.top-bar {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 1rem;
+  background-color: var(--primary-accent);
+  margin-bottom: 2rem;
+  z-index: 9999;
 }
 
 .about-social-list {
@@ -396,7 +407,7 @@ h5 {
 
 /* Works */
 .projects {
-  padding-bottom: 6rem;
+  padding: 4rem 0;
   background-color: var(--primary-bg-color);
 }
 
@@ -681,7 +692,8 @@ h5 {
   align-items: center;
   width: 100%;
   max-width: 400px;
-  margin: 0 auto 3rem auto;
+  margin: 3rem auto 3rem auto;
+  user-select: none;
 }
 
 .phone {
@@ -701,6 +713,7 @@ h5 {
   background-color: white;
   z-index: 1;
   border-radius: 40px;
+  box-shadow: 0 2rem 2rem rgba(0, 0, 0, 0.5);
 }
 
 .phone-screen iframe {
