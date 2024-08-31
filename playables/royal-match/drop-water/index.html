@@ -3,6 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <title>Game</title>
+    <script>
+      var clickTag =
+        "https://apps.apple.com/app/royal-match/id1482155847";
+      var iosLink =
+        "https://apps.apple.com/app/royal-match/id1482155847";
+      var androidLink =
+        "https://play.google.com/store/apps/details?id=com.dreamgames.royalmatch";
+
+      var userAgent = navigator.userAgent || navigator.vendor;
+      var clickTag = /android/i.test(userAgent) ? androidLink : iosLink;
+
+      var link = iosLink;
+      var link2 = androidLink;
+      var lp_url = clickTag;
+
+      ////MOBVISTA FUNCTIONS
+      function gameStart() {
+        if (!window.app || !app.gameStart) {
+          setTimeout(gameStart, 250);
+          return;
+        }
+        app.gameStart();
+      }
+
+      function gameClose() {
+        if (!app) return;
+        app.gameClose();
+      }
+
+      function mobvistaGameReady() {
+        window.gameReady && window.gameReady();
+      }
+
+      function mobvistaGameEnd() {
+        window.gameEnd && window.gameEnd();
+      }
+    </script>
     <script defer src="./main.js"></script>
     <style type="text/css">
       /* PRELOADER - START */

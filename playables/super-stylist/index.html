@@ -364,24 +364,7 @@ body,html{
         <div></div>
       </div>
     </div>
-    <script>
-      function hidePreloader() {
-        const preloader = document.getElementById("preloader");
-        preloader.style.display = "none";
-      }
-
-      const interval = setInterval(() => {
-        if (
-          window.app &&
-          window.app.main &&
-          window.app.main.time &&
-          window.app.main.time.isStarted
-        ) {
-          clearInterval(interval);
-          hidePreloader();
-        }
-      }, 100);
-    </script>
+ 
 
     <script type="text/javascript">
       _linkedin_partner_id = "7591673";

@@ -4,6 +4,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game</title>
+    <script>
+      var clickTag = "https://apps.apple.com/app/angry-birds-2/id880047117";
+      var iosLink = "https://apps.apple.com/app/angry-birds-2/id880047117";
+      var androidLink =
+        "https://play.google.com/store/search?q=angry%20birds%202&c=apps";
+
+      var userAgent = navigator.userAgent || navigator.vendor;
+      var clickTag = /android/i.test(userAgent) ? androidLink : iosLink;
+
+      var link = iosLink;
+      var link2 = androidLink;
+      var lp_url = clickTag;
+
+      ////MOBVISTA FUNCTIONS
+      function gameStart() {
+        if (!window.app || !app.gameStart) {
+          setTimeout(gameStart, 250);
+          return;
+        }
+        app.gameStart();
+      }
+
+      function gameClose() {
+        if (!app) return;
+        app.gameClose();
+      }
+
+      function mobvistaGameReady() {
+        window.gameReady && window.gameReady();
+      }
+
+      function mobvistaGameEnd() {
+        window.gameEnd && window.gameEnd();
+      }
+    </script>
     <script defer src="./main.js"></script>
     <style type="text/css">
       /* PRELOADER - START */
