@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-L2BTF1MNEM"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-L2BTF1MNEM");
+    </script>
     <meta charset="utf-8" />
     <meta
       id="viewport"
@@ -8,7 +22,6 @@
       content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"
     />
     <style>
-         
       * {
         overflow: hidden;
       }
@@ -142,8 +155,8 @@
         height: 100%;
       }
 
-          /* PRELOADER - START */
-          #preloader {
+      /* PRELOADER - START */
+      #preloader {
         position: fixed;
         display: flex;
         flex-flow: row wrap;
@@ -770,11 +783,7 @@
       }
 
       const interval = setInterval(() => {
-        if (
-          window.app &&
-          window.app.main &&
-          window.app.main.isNetworkReady
-        ) {
+        if (window.app && window.app.main && window.app.main.isNetworkReady) {
           clearInterval(interval);
           hidePreloader();
         }
